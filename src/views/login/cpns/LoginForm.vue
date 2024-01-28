@@ -2,10 +2,11 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
+import { localCache } from '@/utils/'
 
 const loginForm = reactive({
-  username: '', // 用户名
-  password: '', // 密码
+  username: localCache.get('username') || '', // 用户名
+  password: localCache.get('password') || '', // 密码
 })
 
 const rules = ref<FormRules>({
@@ -14,8 +15,13 @@ const rules = ref<FormRules>({
     { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' },
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+    { required: true, message: '密码不能为空！', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度6-20位！', trigger: 'blur' },
+    {
+      pattern: /^\w{6,20}$/,
+      message: '密码字母数字下划线组成',
+      trigger: 'change',
+    },
   ],
 })
 
@@ -23,11 +29,29 @@ const loginFormRef = ref<FormInstance>()
 
 const isLoading = ref(false)
 
-const token = ref('')
+const token = computed(() => localCache.get('token'))
 
 const isAutoLogin = ref(false)
 
-const loginFormSubmit = () => {}
+const loginFormSubmit = () => {
+  if (!loginForm.username || !loginForm.password) return
+  // 0.查看是否自动登录
+  if (isAutoLogin) {
+    localCache.set('username', loginForm.username)
+    localCache.set('password', loginForm.password)
+  } else {
+    localCache.remove('username')
+    localCache.remove('password')
+  }
+  // 1. 表单校验
+  loginFormRef.value?.validate(async (valid) => {
+    if (!valid) return
+    // 2. 发送请求
+    // 3. 处理响应
+    // 4. 保存token
+    // 5. 跳转到首页
+  })
+}
 </script>
 
 <template>

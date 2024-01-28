@@ -8,10 +8,12 @@ import 'virtual:uno.css'
 import registerElementPlusIcons from './global/elementplus-icon';
 import { createApp } from 'vue';
 import App from './App.vue';
+import router from './router';
 
 // Plugins
 
 const app = createApp(App);
+app.use(router)
 app.mount('#app');
 
 registerElementPlusIcons(app);

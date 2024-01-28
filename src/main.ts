@@ -4,7 +4,13 @@ import './assets/styles/init.scss';
 import './assets/styles/common.scss';
 import './assets/styles/animate.scss';
 
+import registerElementPlusIcons from './global/elementplus-icon';
 import { createApp } from 'vue';
 import App from './App.vue';
 
-createApp(App).mount('#app');
+// Plugins
+
+const app = createApp(App);
+app.mount('#app');
+
+registerElementPlusIcons(app);

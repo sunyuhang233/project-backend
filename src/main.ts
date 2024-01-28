@@ -1,5 +1,10 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+// Styles
+import 'normalize.css';
+import './assets/styles/init.scss';
+import './assets/styles/common.scss';
+import './assets/styles/animate.scss';
 
-createApp(App).mount('#app')
+import { createApp } from 'vue';
+import App from './App.vue';
+
+createApp(App).mount('#app');

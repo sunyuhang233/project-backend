@@ -3,12 +3,15 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { localCache } from '@/utils/'
+import { useDateFormat } from '@vueuse/core'
 
+// 登录表单
 const loginForm = reactive({
   username: localCache.get('username') || '', // 用户名
   password: localCache.get('password') || '', // 密码
 })
 
+// 表单校验规则
 const rules = ref<FormRules>({
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -25,24 +28,39 @@ const rules = ref<FormRules>({
   ],
 })
 
+// 表单实例
 const loginFormRef = ref<FormInstance>()
 
+// 加载状态
 const isLoading = ref(false)
 
+// token
 const token = computed(() => localCache.get('token'))
 
+// 是否自动登录
 const isAutoLogin = ref(false)
 
+// 路由
+const router = useRouter()
+
+// 登录表单提交
 const loginFormSubmit = () => {
-  if (!loginForm.username || !loginForm.password) return
+  if (!loginForm.username || !loginForm.password) {
+    ElNotification.warning({
+      message: '你暂未输入内容，请重新填写后再次点击登录！',
+      duration: 5000,
+    })
+    return
+  }
   // 0.查看是否自动登录
-  if (isAutoLogin) {
+  if (isAutoLogin.value) {
     localCache.set('username', loginForm.username)
     localCache.set('password', loginForm.password)
   } else {
     localCache.remove('username')
     localCache.remove('password')
   }
+  isLoading.value = true
   // 1. 表单校验
   loginFormRef.value?.validate(async (valid) => {
     if (!valid) return
@@ -50,6 +68,14 @@ const loginFormSubmit = () => {
     // 3. 处理响应
     // 4. 保存token
     // 5. 跳转到首页
+    ElNotification.success({
+      title: '登录成功！',
+      message: useDateFormat(Date.now(), 'YYYY-MM-DD HH:mm:ss').value,
+      duration: 5000,
+    })
+    router.push('/')
+    isLoading.value = false
+    loginFormRef.value?.resetFields()
   })
 }
 </script>
@@ -67,13 +93,23 @@ const loginFormSubmit = () => {
     class="form w-94vw sm:w-400px">
     <h2 mb-5 text-center tracking-0.2em>登 录</h2>
     <el-form-item prop="username">
-      <el-input v-model.trim="loginForm.username" placeholder="请输入用户名" :prefix-icon="User"></el-input>
+      <el-input
+        v-model.trim="loginForm.username"
+        placeholder="请输入用户名"
+        :prefix-icon="User"
+        @keyup.enter="loginFormSubmit"></el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input v-model.trim="loginForm.password" placeholder="请输入密码" :prefix-icon="Lock"></el-input>
+      <el-input
+        type="password"
+        show-password
+        v-model.trim="loginForm.password"
+        placeholder="请输入密码"
+        :prefix-icon="Lock"
+        @keyup.enter="loginFormSubmit"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-checkbox v-model="isAutoLogin"> 自动登录 </el-checkbox>
+      <el-checkbox v-model="isAutoLogin" @keyup.enter="loginFormSubmit"> 自动登录 </el-checkbox>
     </el-form-item>
     <el-form-item>
       <el-button

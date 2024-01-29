@@ -9,6 +9,15 @@ import HeaderMenu from '@/components/HeaderMenu.vue'
     <section class="flex right flex-1">
       <!-- Left -->
       <LeftMenu />
+      <!-- Content -->
+      <!-- 内容 -->
+      <router-view v-slot="{ Component }">
+        <keep-alive :exclude="['/login']" :max="12">
+          <transition name="fade-lr" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </keep-alive>
+      </router-view>
     </section>
   </div>
 </template>

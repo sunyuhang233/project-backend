@@ -32,7 +32,7 @@ const menuList = ref<IndexMenuType[]>([
   {
     meta: {
       title: '首页',
-      url: '/home',
+      url: '/main/dashbord',
       icon: 'i-solar:home-bold',
       onIcon: 'i-solar:home-bold',
     },
@@ -41,7 +41,7 @@ const menuList = ref<IndexMenuType[]>([
   {
     meta: {
       title: '博客',
-      url: '/blog',
+      url: '/main/user1',
       icon: 'i-solar:bell-bold',
       onIcon: 'i-solar:blog-bold',
     },
@@ -60,7 +60,7 @@ const menuList = ref<IndexMenuType[]>([
   {
     meta: {
       title: '项目',
-      url: '/project',
+      url: '/main/user',
       icon: 'i-solar:user-bold',
       onIcon: 'i-solar:project-bold',
     },

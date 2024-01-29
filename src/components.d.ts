@@ -29,6 +29,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ThemeSwitch: typeof import('./components/btn/ThemeSwitch.vue')['default']
     UserCard: typeof import('./components/card/UserCard.vue')['default']
+    WelcomeCard: typeof import('./components/card/WelcomeCard.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

@@ -98,7 +98,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
     v-loading.fullscreen="isLoading"
     :disabled="isLoading"
     :element-loading-text="token ? '自动登录中...' : '登录中'"
-    label-position="top"
     hide-required-asterisk
     :rules="rules"
     :model="loginForm"
@@ -154,9 +153,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
   }
 }
 
-:deep(.el-button) {
-  padding: 0.3em 1em;
-}
 // label总体
 :deep(.el-form-item) {
   margin-bottom: 14px;

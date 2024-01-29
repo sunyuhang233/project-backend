@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 interface OrdersTotalVO {
   /**
@@ -38,6 +38,8 @@ enum OrdersStatus {
   /** 退款成功并取消 */
   REFUND_SUCCESS = 8,
 }
+
+// 订单列表
 const orderTotalList = ref<OrdersTotal[]>([
   {
     nums: 0,
@@ -86,9 +88,13 @@ const orderTotalList = ref<OrdersTotal[]>([
   },
 ])
 
+// 加载数据
 async function loadData() {}
-loadData()
+onMounted(() => {
+  loadData()
+})
 
+// 获取订单状态 根据订单状态返回对应的标题
 function getTitle(status?: OrdersStatus) {
   switch (status) {
     case OrdersStatus.UN_PAID:
@@ -157,13 +163,10 @@ function getTitle(status?: OrdersStatus) {
 }
 
 const router = useRouter()
+
+// 跳转到订单详情
 function gotoDetailOrder(p: OrdersTotal) {
-  router.push({
-    name: 'order',
-    query: {
-      status: p.status,
-    },
-  })
+  router.push('/main/order?status=' + p.status)
 }
 </script>
 

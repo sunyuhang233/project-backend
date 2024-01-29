@@ -7,7 +7,8 @@ export const useUserStore = defineStore("useUserStore", () => {
         userId: 102131,
         username: "admin",
         nickname: "管理员",
-        avatar: "https://p.qqan.com/up/2021-1/16097287631656400.jpg"
+        avatar: "https://p.qqan.com/up/2021-1/16097287631656400.jpg",
+        slogan:"hello word"
     })
 
     const isLogin = ref(false)
@@ -44,6 +45,7 @@ export const useUserStore = defineStore("useUserStore", () => {
             nickname: "",
             avatar: "",
             userId: 0,
+            slogan:''
         }
         token.value = ""
         isLogin.value = false

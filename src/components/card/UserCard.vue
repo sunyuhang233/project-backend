@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useUserStore } from '@/stores'
 
-const user = useUserStore()
+const userStore = useUserStore()
 
 const imagesList = ref([])
 
@@ -10,12 +10,12 @@ function onDeleteAdmin() {
 }
 
 function userQuiteClick() {
-  user.userQuite()
+  userStore.userQuite()
 }
 </script>
 
 <template>
-  <div v-if="user.userInfo?.userId" class="group user-line relative flex-row-c-c" cursor-pointer>
+  <div v-if="userStore.userInfo?.userId" class="group user-line relative flex-row-c-c" cursor-pointer>
     <!-- Card -->
     <Transition name="fade">
       <div
@@ -29,8 +29,8 @@ function userQuiteClick() {
         filter-drop-shadow
         md:right-4rem>
         <div class="flex flex-col shadow-sm shadow-inset card-default" mt-2 p-4 leading-1.6em>
-          <small> 用户名：{{ user.userInfo.username || '未填写' }} </small>
-          <small> 签名：{{ user.userInfo.slogan || '未填写' }} </small>
+          <small> 用户名：{{ userStore.userInfo.username || '未填写' }} </small>
+          <small> 签名：{{ userStore.userInfo?.slogan || '未填写' }} </small>
         </div>
         <!-- 退出登录| 注销 -->
         <div class="btn" flex-row-bt-c pt-4>
@@ -41,19 +41,18 @@ function userQuiteClick() {
     </Transition>
     <!-- Avatar -->
     <div class="user-small flex select-none">
-      <el-badge :is-dot="!user?.userInfo?.avatar" class="flex-row-c-c rounded-1/2 shadow-sm transition-300">
-        <el-image
-          :src="user?.userInfo?.avatar"
-          class="h-2rem w-2rem rounded-1/2"
-          @click="ossFileInputRef?.inputRef?.click()">
-          <span i-solar:user-bold style="width: 60%; height: 60%" />
+      <el-badge :is-dot="!userStore?.userInfo?.avatar" class="flex-row-c-c rounded-1/2 shadow-sm transition-300">
+        <el-image :src="userStore?.userInfo?.avatar" class="h-2rem w-2rem rounded-1/2">
+          <template #error>
+            <span i-solar:user-bold style="width: 60%; height: 60%" />
+          </template>
         </el-image>
       </el-badge>
     </div>
     <!-- nickName -->
-    <div class="relative hidden flex-1 truncate pl-2 -z-1 md:block">
+    <div class="hidden flex-1 truncate pl-2 -z-1 md:block">
       <strong class="w-full overflow-hidden">
-        {{ user.userInfo?.nickname }}
+        {{ userStore.userInfo?.nickname }}
       </strong>
       <!-- <CopyText :text="user.userInfo?.id" class="text-0.8rem opacity-70" /> -->
     </div>

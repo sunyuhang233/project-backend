@@ -27,7 +27,7 @@ import LoginForm from './cpns/LoginForm.vue'
         <!-- 图片 -->
         <div class="imgs mb-6 flex-row-c-c flex-1 flex-col">
           <img
-            class="mx-a my-6 w-1/2 md:w-12rem"
+            class="my-6 w-1/2 md:w-12rem"
             object-cover
             dark:filter-invert-100
             src="https://ts1.cn.mm.bing.net/th/id/R-C.01b3febc73de5d286cea33755df7a227?rik=Z%2f45B7BX8Bpbzw&riu=http%3a%2f%2fdata.1freewallpapers.com%2fdownload%2fmanchester-united-football-club-1680x1260.jpg&ehk=l5woBV5fIuupYeUxz2EWuZgOboDySsKs5Y2ElFwHLME%3d&risl=&pid=ImgRaw&r=0"
@@ -35,7 +35,7 @@ import LoginForm from './cpns/LoginForm.vue'
           <strong tracking-0.4em>管理后台</strong>
         </div>
         <!-- 表单 -->
-        <LoginForm class="mx-a px-6 md:mx-0" />
+        <LoginForm />
       </section>
     </section>
   </div>

@@ -23,7 +23,7 @@ const isShowChart = ref(true)
     <section>
       <div grid="~ md:cols-2 gap-6 " mt-4>
         <div class="flex-row-c-c border-transparent rounded-12px px-6 pt-6 border-default dark:border-1px v-card">
-          <OrderPie chart-class="w-300px h-300px"  />
+          <OrderPie chart-class="w-300px h-300px" />
         </div>
       </div>
     </section>

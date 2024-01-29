@@ -20,6 +20,7 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     HeaderMenu: typeof import('./components/HeaderMenu.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']

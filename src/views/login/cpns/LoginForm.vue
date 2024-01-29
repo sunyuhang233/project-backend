@@ -73,6 +73,7 @@ const loginFormSubmit = () => {
       message: useDateFormat(Date.now(), 'YYYY-MM-DD HH:mm:ss').value,
       duration: 5000,
     })
+    console.log('登录成功！')
     router.push('/main')
     isLoading.value = false
     loginFormRef.value?.resetFields()

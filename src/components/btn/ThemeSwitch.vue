@@ -7,6 +7,7 @@ const isDark = useDark()
 
 // 节流watch
 watchDebounced(isDark, (value) => {
+  // value 为 true 时，切换为 dark 模式 为 false 时，切换为 light 模式
   mode.store.value = value ? 'dark' : 'light'
 })
 
@@ -22,7 +23,9 @@ function themeClick(event: MouseEvent) {
   const isDarkValue = !isDark.value
   const clientX = event.clientX
   const clientY = event.clientY
+
   const maxRadius = Math.hypot(Math.max(clientX, innerWidth - clientX), Math.max(clientY, innerHeight - clientY))
+
   // @ts-expect-error
   const transition = document.startViewTransition(() => {
     isDark.value = isDarkValue

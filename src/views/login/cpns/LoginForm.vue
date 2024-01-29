@@ -73,11 +73,22 @@ const loginFormSubmit = () => {
       message: useDateFormat(Date.now(), 'YYYY-MM-DD HH:mm:ss').value,
       duration: 5000,
     })
-    router.push('/')
+    router.push('/main')
     isLoading.value = false
     loginFormRef.value?.resetFields()
   })
 }
+
+// 回车事件
+function onKeyDown(event: KeyboardEvent) {
+  if (event.key === 'Enter') {
+    loginFormSubmit()
+  }
+}
+
+onMounted(() => document.addEventListener('keydown', onKeyDown))
+
+onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
 </script>
 
 <template>
@@ -93,11 +104,7 @@ const loginFormSubmit = () => {
     class="form w-94vw sm:w-400px">
     <h2 mb-5 text-center tracking-0.2em>登 录</h2>
     <el-form-item prop="username">
-      <el-input
-        v-model.trim="loginForm.username"
-        placeholder="请输入用户名"
-        :prefix-icon="User"
-        @keyup.enter="loginFormSubmit"></el-input>
+      <el-input v-model.trim="loginForm.username" placeholder="请输入用户名" :prefix-icon="User"></el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input
@@ -109,7 +116,7 @@ const loginFormSubmit = () => {
         @keyup.enter="loginFormSubmit"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-checkbox v-model="isAutoLogin" @keyup.enter="loginFormSubmit"> 自动登录 </el-checkbox>
+      <el-checkbox v-model="isAutoLogin"> 自动登录 </el-checkbox>
     </el-form-item>
     <el-form-item>
       <el-button
@@ -118,7 +125,6 @@ const loginFormSubmit = () => {
         @click="loginFormSubmit"
         :loading="isLoading"
         style="padding: 20px"
-        @keyup.enter="loginFormSubmit"
         >登录</el-button
       >
     </el-form-item>

@@ -19,7 +19,9 @@ import LoginForm from './cpns/LoginForm.vue'
             alt="Logo" />
           <small class="font-600 text-[var(--el-color-primary)]">管理后台</small>
         </div>
-        <div class="right opacity-0 group-hover:opacity-70">Switch</div>
+        <div class="right opacity-0 group-hover:opacity-70">
+          <ThemeSwitch />
+        </div>
       </div>
       <section class="flex-row-bt-c flex-wrap pb-10">
         <!-- 图片 -->

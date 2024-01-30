@@ -4,10 +4,10 @@ import { useStorage } from '@vueuse/core'
 const route = useRoute()
 const router = useRouter()
 // 是否折叠  本地状态
-const isFold = ref(true)
+const isFold = useStorage('isFold', false)
 
 // 长短折叠
-const isCollapse = ref<boolean>(false)
+const isCollapse = useStorage('isCollapse', false)
 const activeMenu = computed({
   get() {
     return route.path
@@ -127,7 +127,7 @@ const menuList = ref<IndexMenuType[]>([
         rounded-r-6px
         opacity-100
         md:group-hover:opacity-100
-        class="absolute bottom-4rem h-3rem w-1.4rem -right-1.4rem -z-1 -z-1"
+        class="absolute bottom-4rem h-3rem w-1.4rem -right-1.4rem -z-1"
         :class="isCollapse ? 'bg-[var(--el-color-primary)] opacity-100 text-white' : 'text-dark'"
         transition="all 300 cubic-bezier(0.61, 0.225, 0.195, 1.3)"
         @click="isCollapse = !isCollapse">

@@ -24,7 +24,11 @@ function userQuiteClick() {
         >通用后台</strong
       >
       <!-- Select -->
-      select
+      <div ml-4 flex items-center md:ml-16>
+        <nav class="hidden md:block">
+          <AllSearch />
+        </nav>
+      </div>
     </div>
     <div class="right flex-row-c-c">
       <!-- Message -->

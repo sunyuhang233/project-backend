@@ -27,7 +27,7 @@ interface IndexMenuType {
       v-if="data.meta.icon && !data.children?.length"
       class="transition-200"
       :class="$route.path === data.meta.url ? data.meta?.onIcon : data.meta.icon"
-      filter-drop-shadows
+      filter-drop-shadow
       p-0.8em />
     <el-image
       v-else-if="data.meta.image && !data.children?.length"

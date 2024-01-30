@@ -13,7 +13,7 @@ import HotGoodsList from './cpns/HotGoodsList.vue'
         <OrderTotal class="box-content" />
         <DesTotal class="box-content" />
         <HotGoodsList class="box-content" />
-        <div>123</div>
+        <div grid="~ md:cols-2 gap-8" />
       </div>
       <div class="right" grid="~ cols-1 gap-8">
         <div>123</div>

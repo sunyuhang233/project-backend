@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import OrderTotal from './cpns/OrderTotal.vue'
 import DesTotal from './cpns/DesTotal.vue'
+import HotGoodsList from './cpns/HotGoodsList.vue'
 </script>
 
 <template>
@@ -11,7 +12,7 @@ import DesTotal from './cpns/DesTotal.vue'
         <!-- 订单数 -->
         <OrderTotal class="box-content" />
         <DesTotal class="box-content" />
-        <div>123</div>
+        <HotGoodsList class="box-content" />
         <div>123</div>
       </div>
       <div class="right" grid="~ cols-1 gap-8">

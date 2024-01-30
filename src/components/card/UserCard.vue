@@ -12,10 +12,14 @@ function onDeleteAdmin() {
 function userQuiteClick() {
   userStore.userQuite()
 }
+
+function handleClick() {
+  console.log(123)
+}
 </script>
 
 <template>
-  <div v-if="userStore.userInfo?.userId" class="group user-line relative flex-row-c-c" cursor-pointer>
+  <div v-if="userStore.userInfo?.userId" class="user-line relative flex-row-c-c" cursor-pointer>
     <!-- Card -->
     <Transition name="fade">
       <div
@@ -40,7 +44,7 @@ function userQuiteClick() {
       </div>
     </Transition>
     <!-- Avatar -->
-    <div class="user-small flex select-none">
+    <div class="user-small flex select-none group">
       <el-badge :is-dot="!userStore?.userInfo?.avatar" class="flex-row-c-c rounded-1/2 shadow-sm transition-300">
         <el-image :src="userStore?.userInfo?.avatar" class="h-2rem w-2rem rounded-1/2">
           <template #error>
@@ -54,7 +58,14 @@ function userQuiteClick() {
       <strong class="w-full overflow-hidden">
         {{ userStore.userInfo?.nickname }}
       </strong>
-      <!-- <CopyText :text="user.userInfo?.id" class="text-0.8rem opacity-70" /> -->
+      <div class="text-0.8rem opacity-70" @click="handleClick">
+        <div class="cursor-pointer transition-300 hover:text-[var(--el-color-info)]">
+          <div ml-a inline style="font-size: inherit">
+            {{ userStore.userInfo?.userId }}
+          </div>
+          <i class="ml-1 p-0.6em opacity-60" i-solar:copy-bold-duotone />
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -90,7 +90,7 @@ const handleSelectChange = (value: DateTimeType) => {
         </div>
       </div>
     </div>
-    <section v-auto-animate class="min-h-320px w-full flex-row-c-c p-2">
+    <section class="min-h-320px w-full flex-row-c-c p-2">
       <v-chart v-if="!isLoading" :autoresize="{ throttle: 500 }" :option="option" class="h-300px w-full" />
       <div v-else class="truncate text-center opacity-80">暂无数据</div>
     </section>

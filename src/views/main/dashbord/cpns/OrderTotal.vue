@@ -181,9 +181,7 @@ function gotoDetailOrder(p: OrdersTotal) {
           class="relative mx-1 w-8rem flex-row-c-c flex-shrink-0 flex-col cursor-pointer overflow-hidden rounded-10px transition-200 lg:(mx-2 flex-1 p-2) hover-(shadow)"
           :class="p.class"
           @click="gotoDetailOrder(p)">
-          <span v-incre-up.int="p.nums" class="dark:text-light" :style="{ color: p.color }" my-4 text-1.4rem font-500>{{
-            p.nums
-          }}</span>
+          <span class="dark:text-light" :style="{ color: p.color }" my-4 text-1.4rem font-500>{{ p.nums }}</span>
           <small truncate pb-2 text-0.8rem font-600> {{ p.title }}</small>
           <i v-if="p.icon" absolute :class="p.icon" />
         </div>

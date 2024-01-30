@@ -13,13 +13,13 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import registerStore from './stores/pinia';
-
+import "default-passive-events";
 // Plugins
 import * as echarts from "./global/echarts"
 import VueCharts from "vue-echarts";
 const app = createApp(App);
-app.use(router)
-app.component("VChart", VueCharts);
-app.mount('#app');
 registerStore(app)
 registerElementPlusIcons(app);
+app.component("VChart", VueCharts);
+app.use(router)
+app.mount('#app');

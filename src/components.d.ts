@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AllSearch: typeof import('./components/menu/AllSearch.vue')['default']
     BellBtn: typeof import('./components/btn/BellBtn.vue')['default']
+    CopyBtn: typeof import('./components/btn/CopyBtn.vue')['default']
     DebiceMenu: typeof import('./components/card/DebiceMenu.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
@@ -20,6 +21,7 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
+    ElImageViewer: typeof import('element-plus/es')['ElImageViewer']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElOption: typeof import('element-plus/es')['ElOption']

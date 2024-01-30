@@ -11,7 +11,7 @@ function userQuiteClick() {
   <header class="z-1000 block w-full flex-row-bt-c header flex px-4 md:px-6">
     <div class="left flex items-center cursor-pointer">
       <!-- Logo -->
-      <RouterLink to="/" class="group relative">
+      <RouterLink to="/main" class="group relative">
         <img class="h-2.4rem w-2.4rem object-cover dark:hidden" src="@/assets/images/logo/logo.png" alt="" />
         <img class="h-2.4rem w-2.4rem object-cover hidden dark:block" src="@/assets/images/logo/logo_dark.png" alt="" />
         <i

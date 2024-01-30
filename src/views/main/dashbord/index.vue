@@ -2,6 +2,7 @@
 import OrderTotal from './cpns/OrderTotal.vue'
 import DesTotal from './cpns/DesTotal.vue'
 import HotGoodsList from './cpns/HotGoodsList.vue'
+import BillsTable from './cpns/BillsTable.vue'
 </script>
 
 <template>
@@ -17,7 +18,7 @@ import HotGoodsList from './cpns/HotGoodsList.vue'
       </div>
       <div class="right" grid="~ cols-1 gap-8">
         <div>123</div>
-        <div>123</div>
+        <BillsTable class="box-content" />
         <div>123</div>
         <div>123</div>
       </div>

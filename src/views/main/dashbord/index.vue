@@ -4,6 +4,7 @@ import DesTotal from './cpns/DesTotal.vue'
 import HotGoodsList from './cpns/HotGoodsList.vue'
 import BillsTable from './cpns/BillsTable.vue'
 import OrdersTable from './cpns/OrdersTable.vue'
+import MenuSwiper from './cpns/MenuSwiper.vue'
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import OrdersTable from './cpns/OrdersTable.vue'
         <div grid="~ md:cols-2 gap-8" />
       </div>
       <div class="right" grid="~ cols-1 gap-8">
-        <div>123</div>
+        <MenuSwiper class="w-full" />
         <OrdersTable class="box-content" />
         <BillsTable class="box-content" />
       </div>

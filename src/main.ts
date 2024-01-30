@@ -5,6 +5,9 @@ import './assets/styles/common.scss';
 import './assets/styles/animate.scss';
 import 'element-plus/theme-chalk/src/message.scss';
 import 'virtual:uno.css'
+
+import "swiper/css";
+import "swiper/css/navigation";
 import registerElementPlusIcons from './global/elementplus-icon';
 import { createApp } from 'vue';
 import App from './App.vue';

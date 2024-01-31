@@ -2,6 +2,9 @@
 import { useDateFormat } from '@vueuse/core'
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores'
+import { userListData } from './data/user'
+import UserModal from './cpns/modal.vue'
+
 type Gender = undefined | null | '男' | '女' | '保密'
 
 interface UserVO {
@@ -68,39 +71,7 @@ const userStore = useUserStore()
 const page = ref(1)
 const pageSize = ref(10)
 // 根据UserVo生成10条数据
-const userList = ref<UserVO[]>([
-  {
-    id: '1',
-    avatar: 'https://p.qqan.com/up/2021-1/16097287631656400.jpg',
-    birthday: '2021-08-01 00:00:00',
-    createTime: '2021-08-01 00:00:00',
-    updateTime: '2021-08-01 00:00:00',
-    username: 'admin',
-    gender: '男',
-    status: 1,
-    nickname: 'admin',
-  },
-  {
-    id: '2',
-    avatar: 'https://p.qqan.com/up/2021-1/16097287631656400.jpg',
-    birthday: '2021-08-01 00:00:00',
-    createTime: '2021-08-01 00:00:00',
-    updateTime: '2021-08-01 00:00:00',
-    username: 'admin',
-    gender: '男',
-    status: 1,
-  },
-  {
-    id: '3',
-    avatar: 'https://p.qqan.com/up/2021-1/16097287631656400.jpg',
-    birthday: '2021-08-01 00:00:00',
-    createTime: '2021-08-01 00:00:00',
-    username: 'admin',
-    gender: '男',
-    updateTime: '2021-08-01 00:00:00',
-    status: 0,
-  },
-])
+const userList = ref<UserVO[]>(userListData)
 
 const isLoading = ref(false)
 
@@ -136,6 +107,12 @@ async function handleSwicthChange(id: string, status: number, message: string) {
     ElMessage.error(`用户${message}失败`)
     return false
   }
+}
+
+const UserModalRef = ref<InstanceType<typeof UserModal>>()
+
+function handleShowInfoClick(row: UserVO, action: 'view' | 'edit' | 'add') {
+  UserModalRef.value?.handleShowFormClick(row, action)
 }
 </script>
 
@@ -227,11 +204,18 @@ async function handleSwicthChange(id: string, status: number, message: string) {
         <template #default="{ row }">
           <div class="flex opacity-0 transition-200 group-hover:opacity-100">
             <!-- 预览 -->
-            <div class="mx-2 btn-default hover:text-[var(--el-color-info)]" style="padding: 0rem 0.6rem">
+            <div
+              class="mx-2 btn-default hover:text-[var(--el-color-info)]"
+              style="padding: 0rem 0.6rem"
+              @click="handleShowInfoClick(row, 'view')">
               <i i-solar:eye-bold-duotone p-0.5em />
             </div>
             <!-- 编辑 -->
-            <el-button icon="Edit" type="success" style="padding: 0rem 0.6rem" />
+            <el-button
+              icon="Edit"
+              type="success"
+              style="padding: 0rem 0.6rem"
+              @click="handleShowInfoClick(row, 'edit')" />
             <!-- 角色 -->
             <el-button type="info" style="padding: 0rem 0.6rem">
               <i i-solar:shield-user-bold-duotone mr-1 p-0.5em />
@@ -249,6 +233,9 @@ async function handleSwicthChange(id: string, status: number, message: string) {
         >个用户</small
       >
     </footer>
+
+    <!-- Modal -->
+    <user-modal ref="UserModalRef" />
   </div>
 </template>
 

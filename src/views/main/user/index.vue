@@ -87,11 +87,12 @@ onMounted(() => {
 // 存放选择的用户数组
 const selectUserList = ref<UserVO[]>([])
 
-// 选择用户
+// Select User
 function handleSelectClick(data: UserVO[]) {
   selectUserList.value = data ? data : []
 }
 
+// Status Change
 async function handleSwicthChange(id: string, status: number, message: string) {
   // 请求
   const data = await ElMessageBox.confirm(`确定用户${message}吗？`, '操作提醒', {
@@ -110,8 +111,10 @@ async function handleSwicthChange(id: string, status: number, message: string) {
   }
 }
 
+// Modal Ref
 const UserModalRef = ref<InstanceType<typeof UserModal>>()
 
+// Show Modal
 function handleShowInfoClick(action: 'view' | 'edit' | 'add', row?: UserVO) {
   UserModalRef.value?.handleShowFormClick(action, row)
 }
@@ -119,6 +122,15 @@ function handleShowInfoClick(action: 'view' | 'edit' | 'add', row?: UserVO) {
 // Add
 function handleAddClick() {
   handleShowInfoClick('add')
+}
+
+// DeleteBatch
+function handleDeleteBatchClick() {
+  if (selectUserList.value.length === 0) {
+    ElMessage.warning('请选择要删除的用户')
+    return
+  }
+  const ids = selectUserList.value.map((item) => item.id)
 }
 </script>
 
@@ -132,7 +144,7 @@ function handleAddClick() {
       </h3>
     </header>
     <!--  Search -->
-    <UserSearch />
+    <UserSearch @add="handleAddClick" @reload="loadData" @delete-batch="handleDeleteBatchClick" />
 
     <!-- Table -->
     <el-table

@@ -12,7 +12,16 @@ const isShowSearch = ref(false)
 // 是否加载中
 const isLoading = ref(false)
 
+// 筛选按钮点击
+function handleSearchClick() {
+  isShowSearch.value = !isShowSearch.value
+}
 
+const emits = defineEmits<{
+  (e: 'add'): void
+  (e: 'reload'): void
+  (e: 'deleteBatch'): void
+}>()
 </script>
 
 <template>
@@ -56,11 +65,62 @@ const isLoading = ref(false)
         </el-checkbox>
         <el-button plain type="danger"> 重置 </el-button>
       </div>
-      <div class="ml-a">
-        <el-button type="primary" size="default" @click="isShowSearch = !isShowSearch">12</el-button>
+      <div class="ml-a flex items-center">
+        <el-button
+          type="success"
+          @click="$emit('add')"
+          class="ml-12px w-full tracking-0.2em transition-300 md:ml-0 md:w-auto"
+          plain>
+          <i i-solar:user-bold-duotone p-0.5em mr-1></i>
+          <span>添加</span>
+        </el-button>
+        <el-button
+          type="info"
+          class="ml-12px w-full tracking-0.2em transition-300 md:ml-0 md:w-auto"
+          @click="$emit('reload')">
+          <i i-solar:refresh-outline p-0.5em mr-1></i>
+          <span>刷新</span>
+        </el-button>
+        <el-button class="ml-12px w-full tracking-0.2em transition-300 md:ml-0 md:w-auto">
+          <i i-solar:printer-outline p-0.5em mr-1></i>
+          <span>导出</span>
+        </el-button>
+        <el-button
+          type="danger"
+          class="ml-12px w-full tracking-0.2em transition-300 md:ml-0 md:w-auto"
+          @click="$emit('deleteBatch')">
+          <i i-solar:trash-bin-minimalistic-broken p-0.5em mr-1></i>
+          <span>批量</span>
+        </el-button>
+        <el-button
+          type="warning"
+          @click="handleSearchClick"
+          class="ml-12px w-full tracking-0.2em transition-300 md:ml-0 md:w-auto">
+          <i i-solar:sort-from-top-to-bottom-line-duotone p-0.5em mr-1></i>
+          <span>
+            {{ isShowSearch ? '筛选' : '取消' }}
+          </span>
+        </el-button>
       </div>
     </el-scrollbar>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss">
+:deep(.el-scrollbar__bar) {
+  display: none;
+  width: 0;
+  opacity: 0;
+  .el-scrollbar__thumb {
+    display: none;
+    width: 0;
+    opacity: 0;
+  }
+}
+:deep(.el-checkbox) {
+  margin: 0;
+  .el-checkbox__input {
+    display: none;
+  }
+}
+</style>

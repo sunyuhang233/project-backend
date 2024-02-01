@@ -37,6 +37,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FoldSwiper: typeof import('./components/card/FoldSwiper.vue')['default']
     HeaderMenu: typeof import('./components/menu/HeaderMenu.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']

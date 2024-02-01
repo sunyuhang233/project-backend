@@ -111,8 +111,13 @@ async function handleSwicthChange(id: string, status: number, message: string) {
 
 const UserModalRef = ref<InstanceType<typeof UserModal>>()
 
-function handleShowInfoClick(row: UserVO, action: 'view' | 'edit' | 'add') {
-  UserModalRef.value?.handleShowFormClick(row, action)
+function handleShowInfoClick(action: 'view' | 'edit' | 'add',row?: UserVO) {
+  UserModalRef.value?.handleShowFormClick(action,row)
+}
+
+// Add
+function handleAddClick() {
+  handleShowInfoClick('add')
 }
 </script>
 
@@ -126,7 +131,8 @@ function handleShowInfoClick(row: UserVO, action: 'view' | 'edit' | 'add') {
       </h3>
     </header>
     <!-- Select -->
-    <p>select</p>
+    <el-button type="primary" size="default" @click="handleAddClick">add</el-button>
+
     <!-- Table -->
     <el-table
       stripe
@@ -207,7 +213,7 @@ function handleShowInfoClick(row: UserVO, action: 'view' | 'edit' | 'add') {
             <div
               class="mx-2 btn-default hover:text-[var(--el-color-info)]"
               style="padding: 0rem 0.6rem"
-              @click="handleShowInfoClick(row, 'view')">
+              @click="handleShowInfoClick('view',row)">
               <i i-solar:eye-bold-duotone p-0.5em />
             </div>
             <!-- 编辑 -->
@@ -215,7 +221,7 @@ function handleShowInfoClick(row: UserVO, action: 'view' | 'edit' | 'add') {
               icon="Edit"
               type="success"
               style="padding: 0rem 0.6rem"
-              @click="handleShowInfoClick(row, 'edit')" />
+              @click="handleShowInfoClick('edit',row)" />
             <!-- 角色 -->
             <el-button type="info" style="padding: 0rem 0.6rem">
               <i i-solar:shield-user-bold-duotone mr-1 p-0.5em />

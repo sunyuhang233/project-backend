@@ -1,73 +1,109 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-const { title, action } = withDefaults(
-  defineProps<{
-    title: string
-    action: 'add' | 'edit' | 'view'
-  }>(),
-  {
-    title: '默认标题',
-    action: 'add',
-  },
-)
-const isShowModal = ref(false)
 
+const title = ref('')
+const isShowModal = ref(false)
 const isView = ref(false)
 const isEdit = ref(false)
 const isAdd = ref(false)
 const isUpdate = ref(true)
 
-function handleClose(done: () => void, flag: boolean) {
-  if (flag) {
-    ElMessageBox.confirm('是否放弃修改？', '操作提醒', {
-      confirmButtonText: '放弃',
-      confirmButtonClass: 'el-button--danger',
-      cancelButtonText: '取消',
-      center: true,
+function handleClose(done: () => void) {
+  ElMessageBox.confirm('是否放弃修改？', '操作提醒', {
+    confirmButtonText: '放弃',
+    confirmButtonClass: 'el-button--danger',
+    cancelButtonText: '取消',
+    center: true,
+  })
+    .then(() => {
+      // 确认退出
+      resetPage()
+      done()
     })
-      .then(() => {
-        // 确认退出
-
-        done()
-      })
-      .catch(() => {
-        // 取消
-      })
-  } else {
-    done()
-  }
+    .catch(() => {
+      // 取消
+    })
 }
 
-function handleShowFormClick(row: any, action: 'view' | 'edit' | 'add') {
-  if (action === 'view') {
-    console.log('查看用户信息')
-    isView.value = true
-    // 遍历给表单赋值
-    for (const key in row) {
-      form[key] = row[key]
-    }
-  } else if (action === 'edit') {
-    isEdit.value = true
-    console.log('编辑用户信息')
+// 清除变量
+function resetPage() {
+  isView.value = false
+  isEdit.value = false
+  isAdd.value = false
+  isUpdate.value = false
+  title.value = ''
+  // 清空表单
+  resetForm()
+}
 
+// 清空表单
+function resetForm() {
+  form.avatar = undefined
+  form.status = 0
+  form.id = undefined
+  form.username = undefined
+  form.avatar = undefined
+  form.birthday = undefined
+  form.gender = undefined
+  form.nickname = undefined
+  form.password = undefined
+}
+
+// 显示Modal
+function handleShowFormClick(action: 'view' | 'edit' | 'add', row?: any) {
+  if (action === 'view') {
+    isView.value = true
+    isEdit.value = false
+    title.value = '查看用户'
     // 遍历给表单赋值
-    for (const key in row) {
+    Object.keys(form).forEach((key) => {
       form[key] = row[key]
-    }
+    })
+  } else if (action === 'edit') {
+    title.value = '编辑用户'
+    isEdit.value = true
+    isView.value = false
+    Object.keys(form).forEach((key) => {
+      form[key] = row[key]
+    })
+  } else if (action === 'add') {
+    title.value = '添加用户'
+    isAdd.value = true
+    isView.value = false
+    resetForm()
   }
   isShowModal.value = true
 }
 
+// 关闭Modal
 function handleCloseFormClick() {
+  resetPage()
   isShowModal.value = false
 }
 
+// 暴露给父组件的方法
 defineExpose({
   handleShowFormClick,
   handleCloseFormClick,
 })
 
-const form = reactive({
+interface UserModalRef {
+  status: number
+  id: string | undefined
+  username: string | undefined
+  avatar: string | undefined
+  birthday: string | undefined
+  gender: string | undefined
+  nickname: string | undefined
+  password: string | undefined
+  [key: string]: any
+}
+
+// 表单实例
+const formRef = ref<FormInstance>()
+
+// 表单数据
+const form = reactive<UserModalRef>({
   status: 0,
   id: undefined,
   username: undefined,
@@ -78,6 +114,7 @@ const form = reactive({
   password: undefined,
 })
 
+// 表单校验规则
 const formRules: FormRules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -100,6 +137,27 @@ enum Gender {
   GIRL = '女',
   DEFAULT = '保密',
 }
+
+function submitForm() {
+  formRef.value?.validate(async (valid) => {
+    if (!valid) return
+    isLoading.value = true
+    try {
+      if (isAdd.value) {
+        // 添加
+      } else if (isEdit.value) {
+        // 修改
+      }
+      // 关闭Modal
+      handleCloseFormClick()
+      // 重新加载数据
+    } catch (error) {
+      console.log(error)
+    } finally {
+      isLoading.value = false
+    }
+  })
+}
 </script>
 
 <template>
@@ -109,7 +167,7 @@ enum Gender {
     align-center
     destroy-on-close
     width="fit-content"
-    :before-close="(done: () => void) => isShowModal && handleClose(done, isUpdate)">
+    :before-close="handleClose">
     <template #header>
       <span text-center>{{ title }}</span>
     </template>
@@ -124,7 +182,26 @@ enum Gender {
         class="p-4 md:p-6"
         hide-required-asterisk>
         <el-form-item prop="avatar">
-          <div class="w-6rem mr-4em h-6rem rounded-1/2 mx-a flex-row-c-c flex-shrink-0 v-card">123</div>
+          <div class="flex-row-c-c w-full">
+            <div class="mx-a flex-row-c-c flex-shrink-0 v-card">
+              <!-- Image -->
+              <el-image
+                v-if="form.avatar"
+                class="h-6rem w-6rem rounded-1/2 mr-4rem"
+                src="https://p.qqan.com/up/2021-1/16097287631656400.jpg"
+                fit="cover"
+                :lazy="true"></el-image>
+              <!-- Upload -->
+              <el-upload
+                v-else
+                class="avatar-uploader v-card h-6rem w-6rem mr-4rem flex-row-c-c bordr-default border-bluegray"
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                :show-file-list="false">
+                <img v-if="form.avatar" :src="form.avatar" class="avatar" />
+                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+              </el-upload>
+            </div>
+          </div>
         </el-form-item>
         <el-form-item v-if="form.id" prop="id" label="用户ID">
           <el-input v-model="form.id" disabled />
@@ -169,10 +246,29 @@ enum Gender {
     </div>
     <template #footer>
       <el-button @click="isShowModal = false" type="danger" plain>关闭</el-button>
-      <el-button @click="isShowModal = false" type="info" v-if="isAdd">添加</el-button>
-      <el-button type="info" @click="isShowModal = false" v-if="isEdit">保存修改</el-button>
+      <el-button @click="submitForm" type="info" v-if="isAdd" v-loading="isLoading">添加</el-button>
+      <el-button type="info" @click="submitForm" v-if="isEdit" v-loading="isLoading">保存修改</el-button>
     </template>
   </el-dialog>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  text-align: center;
+}
+</style>

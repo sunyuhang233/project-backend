@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores'
 import { userListData } from './data/user'
 import UserModal from './cpns/modal.vue'
+import UserSearch from './cpns/search.vue'
 
 type Gender = undefined | null | '男' | '女' | '保密'
 
@@ -111,8 +112,8 @@ async function handleSwicthChange(id: string, status: number, message: string) {
 
 const UserModalRef = ref<InstanceType<typeof UserModal>>()
 
-function handleShowInfoClick(action: 'view' | 'edit' | 'add',row?: UserVO) {
-  UserModalRef.value?.handleShowFormClick(action,row)
+function handleShowInfoClick(action: 'view' | 'edit' | 'add', row?: UserVO) {
+  UserModalRef.value?.handleShowFormClick(action, row)
 }
 
 // Add
@@ -130,8 +131,8 @@ function handleAddClick() {
         <small class="ml-2 text-0.7em font-500 opacity-80">{{ nowDate }}</small>
       </h3>
     </header>
-    <!-- Select -->
-    <el-button type="primary" size="default" @click="handleAddClick">add</el-button>
+    <!--  Search -->
+    <UserSearch />
 
     <!-- Table -->
     <el-table
@@ -213,7 +214,7 @@ function handleAddClick() {
             <div
               class="mx-2 btn-default hover:text-[var(--el-color-info)]"
               style="padding: 0rem 0.6rem"
-              @click="handleShowInfoClick('view',row)">
+              @click="handleShowInfoClick('view', row)">
               <i i-solar:eye-bold-duotone p-0.5em />
             </div>
             <!-- 编辑 -->
@@ -221,7 +222,7 @@ function handleAddClick() {
               icon="Edit"
               type="success"
               style="padding: 0rem 0.6rem"
-              @click="handleShowInfoClick('edit',row)" />
+              @click="handleShowInfoClick('edit', row)" />
             <!-- 角色 -->
             <el-button type="info" style="padding: 0rem 0.6rem">
               <i i-solar:shield-user-bold-duotone mr-1 p-0.5em />

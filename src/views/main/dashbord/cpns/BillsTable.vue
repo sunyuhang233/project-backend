@@ -148,9 +148,10 @@ function handleSelectChange(val: number) {
           @change="handlePickerChange" />
         <!-- Select -->
         <div class="w-6rem text-center flex-shrink-0">
-          <el-select size="small" v-model="menuType" clearable filterable @change="handleSelectChange">
+          <small-btn :menu="menu" @change="handleSelectChange" />
+          <!-- <el-select size="small" v-model="menuType" clearable filterable @change="handleSelectChange">
             <el-option v-for="item in menu" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-          </el-select>
+          </el-select> -->
         </div>
       </div>
     </div>

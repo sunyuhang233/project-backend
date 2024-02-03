@@ -84,9 +84,7 @@ const handleSelectChange = (value: DateTimeType) => {
       <!-- 日期 -->
       <div class="opacity-0 transition-200 group-hover:opacity-100">
         <div class="w-6rem text-center flex-shrink-0">
-          <el-select size="small" v-model="menuType" clearable filterable @change="handleSelectChange">
-            <el-option v-for="item in menu" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-          </el-select>
+          <small-btn :menu="menu" @change="handleSelectChange" />
         </div>
       </div>
     </div>

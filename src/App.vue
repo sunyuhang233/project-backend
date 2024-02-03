@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 onMounted(() => {
   const loadingBox = document.querySelector<HTMLDivElement>('.loading-box')
@@ -13,7 +14,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-view />
+  <el-config-provider :locale="zhCn">
+    <RouterView />
+  </el-config-provider>
 </template>
 
 <style lang="scss" scoped></style>
